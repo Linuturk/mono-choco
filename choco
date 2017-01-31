@@ -1,0 +1,4 @@
+#!/bin/bash
+
+cd /usr/local/bin/chocolatey
+mono choco.exe "$@" --allow-unofficial

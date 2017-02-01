@@ -19,4 +19,4 @@ RUN ln -s /usr/local/src/choco/choco-stable/build_output/chocolatey
 
 COPY choco /usr/local/bin/choco
 
-WORKDIR /root
+WORKDIR /usr/local/src/choco/choco-stable/build_output/chocolatey

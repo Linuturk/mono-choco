@@ -1,3 +1,9 @@
 #!/bin/bash
 
 mono /usr/local/bin/chocolatey/choco.exe "$@" --allow-unofficial
+
+# choco dumps a ton of stuff in the PWD/usr
+# This hack will clean it up automatically.
+if [ -d usr ]; then
+        rm -rf usr
+fi

@@ -1,6 +1,6 @@
 FROM mono:3.12.1
 
-MAINTAINER Justin Phelps <linuturk@onitato.com>
+LABEL maintainer="Justin Phelps <linuturk@onitato.com>"
 
 RUN apt-get update && apt-get install -y wget unzip
 

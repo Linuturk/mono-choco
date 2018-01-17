@@ -8,7 +8,8 @@ RUN wget "https://github.com/chocolatey/choco/archive/$chocoVersion.tar.gz"
 RUN tar -xzf "$chocoVersion.tar.gz"
 
 WORKDIR /usr/local/src/choco/choco-$chocoVersion
-RUN chmod +x build.sh zip.sh && ./build.sh -v
+RUN chmod +x build.sh zip.sh
+RUN ./build.sh -v
 
 
 FROM frolvlad/alpine-mono:latest

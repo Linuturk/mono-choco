@@ -1,15 +1,14 @@
-#!/bin/bash
-
+#!/bin/sh
 set -e
 
-# choco dumps a ton of stuff in the PWD/usr
+# choco dumps a ton of stuff in the PWD/opt
 # This hack will clean it up automatically.
-function finish {                                                               
-	if [ -d usr ]; then
-	        rm -rf usr
+function cleanup {
+	if [ -d opt ]; then
+	        rm -rf opt
 	fi
-}                                                                               
-trap finish EXIT
+}
+trap cleanup EXIT
 
 # Wrap the mono choco.exe command
-mono /usr/local/bin/chocolatey/choco.exe "$@" --allow-unofficial
+mono /opt/chocolatey/choco.exe "$@" --allow-unofficial

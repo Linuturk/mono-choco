@@ -1,22 +1,20 @@
-FROM mono:3.12.1
+FROM mono:3.12.1 as builder
+ARG chocoVersion=0.10.8
 
-LABEL maintainer="Justin Phelps <linuturk@onitato.com>"
-
-RUN apt-get update && apt-get install -y wget unzip
+RUN apt-get update && apt-get install -y wget tar gzip
 
 WORKDIR /usr/local/src/choco
-RUN wget https://github.com/chocolatey/choco/archive/stable.zip
-RUN unzip stable.zip
-RUN rm stable.zip
+RUN wget "https://github.com/chocolatey/choco/archive/$chocoVersion.tar.gz"
+RUN tar -xzf "$chocoVersion.tar.gz"
 
-WORKDIR /usr/local/src/choco/choco-stable
-RUN chmod +x build.sh
-RUN chmod +x zip.sh
-RUN ./build.sh
+WORKDIR /usr/local/src/choco/choco-$chocoVersion
+RUN chmod +x build.sh zip.sh && ./build.sh -v
 
-WORKDIR /usr/local/bin
-RUN ln -s /usr/local/src/choco/choco-stable/build_output/chocolatey
 
-COPY choco /usr/local/bin/choco
+FROM frolvlad/alpine-mono:latest
+ARG chocoVersion=0.10.8
 
-WORKDIR /root
+COPY --from=builder "/usr/local/src/choco/choco-$chocoVersion/build_output/chocolatey" /opt/chocolatey
+COPY choco /usr/bin/choco
+
+ENTRYPOINT ["/usr/bin/choco"]

@@ -1,5 +1,5 @@
 FROM mono:3.12.1 as builder
-ARG chocoVersion=0.10.8
+ARG chocoVersion=stable
 
 RUN apt-get update && apt-get install -y wget tar gzip
 
@@ -13,7 +13,7 @@ RUN ./build.sh -v
 
 
 FROM alpine
-ARG chocoVersion=0.10.8
+ARG chocoVersion=stable
 
 RUN apk add --no-cache mono --repository http://nl.alpinelinux.org/alpine/edge/testing
 COPY --from=builder "/usr/local/src/choco/choco-$chocoVersion/build_output/chocolatey" /opt/chocolatey

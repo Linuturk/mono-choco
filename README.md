@@ -6,4 +6,4 @@ Docker image for creating a container with Chocolatey running on Mono
 
 Test the image using `docker run -ti --rm -v $PWD:/root -w /root linuturk/mono-choco -h`
 
-See the example directory for a basic package example.
+See [the example directory](./example/README.md) for a basic package example.

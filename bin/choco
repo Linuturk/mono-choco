@@ -4,11 +4,34 @@ set -e
 # choco dumps a ton of stuff in the PWD/opt
 # This hack will clean it up automatically.
 function cleanup {
-	if [ -d opt ]; then
+	if [ "$PWD" != "/" ] && [ -d opt ]; then
 	        rm -rf opt
 	fi
 }
 trap cleanup EXIT
 
+USER=root
+if [ -n "$UID" ] && [ "$UID" -gt "0" ]; then
+    	USER=chocolatey
+
+    	if [ -n "$GID" ] && [ "$GID" -gt "0" ]; then
+		groupadd -f -g $GID chocolatey
+
+		if [ "$UID" -lt "1000" ]; then
+			useradd -r -N -g $GID -e '' -s /bin/sh -u $UID $USER
+		else
+			useradd -M -N -g $GID -e '' -s /bin/sh -u $UID $USER
+		fi
+    	else
+	    	if [ "$UID" -lt "1000" ]; then
+			useradd -r -U -e '' -s /bin/sh -u $UID $USER
+		else
+			useradd -M -U -e '' -s /bin/sh -u $UID $USER
+		fi
+    	fi
+fi
+
+
 # Wrap the mono choco.exe command
-mono /opt/chocolatey/choco.exe "$@" --allow-unofficial
+command="mono /opt/chocolatey/choco.exe $@  --allow-unofficial"
+su -c "$command" $USER

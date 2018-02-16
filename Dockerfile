@@ -15,7 +15,8 @@ RUN ./build.sh -v
 
 FROM frolvlad/alpine-mono
 
-COPY --from=builder /usr/local/src/choco/build_output/chocolatey /opt/chocolatey
+RUN apk add --no-cache shadow
+COPY --from=builder /usr/local/src/choco/build_output/chocolatey /opt/chocolatey/
 COPY bin/choco /usr/bin/choco
 
 ENTRYPOINT ["/usr/bin/choco"]

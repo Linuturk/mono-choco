@@ -20,3 +20,4 @@ COPY --from=builder "/usr/local/src/choco/choco-$chocoVersion/build_output/choco
 COPY bin/choco /usr/bin/choco
 
 ENTRYPOINT ["/usr/bin/choco"]
+CMD ["-h"]

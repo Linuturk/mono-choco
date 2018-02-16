@@ -18,15 +18,15 @@ if [ -n "$UID" ] && [ "$UID" -gt "0" ]; then
 		groupadd -f -g $GID chocolatey
 
 		if [ "$UID" -lt "1000" ]; then
-			useradd -r -N -g $GID -e '' -s /bin/sh -u $UID $USER
+			useradd -r -N -g $GID -e '' -s /bin/sh -u $UID $USER > /dev/null 2>&1
 		else
-			useradd -M -N -g $GID -e '' -s /bin/sh -u $UID $USER
+			useradd -M -N -g $GID -e '' -s /bin/sh -u $UID $USER > /dev/null 2>&1
 		fi
     	else
 	    	if [ "$UID" -lt "1000" ]; then
-			useradd -r -U -e '' -s /bin/sh -u $UID $USER
+			useradd -r -U -e '' -s /bin/sh -u $UID $USER > /dev/null 2>&1
 		else
-			useradd -M -U -e '' -s /bin/sh -u $UID $USER
+			useradd -M -U -e '' -s /bin/sh -u $UID $USER > /dev/null 2>&1
 		fi
     	fi
 fi

@@ -5,30 +5,29 @@ set -e
 # This hack will clean it up automatically.
 function cleanup {
 	if [ "$PWD" != "/" ] && [ -d opt ]; then
-	        rm -rf opt
+	  	rm -rf opt
 	fi
 }
 trap cleanup EXIT
 
+
 USER=root
-if [ -n "$UID" ] && [ "$UID" -gt "0" ]; then
-    	USER=chocolatey
+if [ -n "$UID" ] && [ "$UID" -gt "100" ]; then
+    USER=chocolatey
+	GROUP=chocolatey
 
-    	if [ -n "$GID" ] && [ "$GID" -gt "0" ]; then
-		groupadd -f -g $GID chocolatey
+    if [ -n "$GID" ] && [ "$GID" -gt "100" ]; then
+		groupadd -g $GID $GROUP
+    else
+		GID=$UID
+		groupadd -g $GID $GROUP
+    fi
 
-		if [ "$UID" -lt "1000" ]; then
-			useradd -r -N -g $GID -e '' -s /bin/sh -u $UID $USER > /dev/null 2>&1
-		else
-			useradd -M -N -g $GID -e '' -s /bin/sh -u $UID $USER > /dev/null 2>&1
-		fi
-    	else
-	    	if [ "$UID" -lt "1000" ]; then
-			useradd -r -U -e '' -s /bin/sh -u $UID $USER > /dev/null 2>&1
-		else
-			useradd -M -U -e '' -s /bin/sh -u $UID $USER > /dev/null 2>&1
-		fi
-    	fi
+	if [ "$UID" -lt "1000" ]; then
+		useradd -r -N -g $GID -s /bin/sh -u $UID $USER > /dev/null 2>&1
+	else
+		useradd -M -N -e '' -g $GID -s /bin/sh -u $UID $USER > /dev/null 2>&1
+	fi
 fi
 
 

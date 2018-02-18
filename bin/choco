@@ -16,12 +16,12 @@ if [ -n "$UID" ] && [ "$UID" -gt "100" ]; then
 	USER=chocolatey
 	GROUP=chocolatey
 
-    if [ -n "$GID" ] && [ "$GID" -gt "100" ]; then
+	if [ -n "$GID" ] && [ "$GID" -gt "100" ]; then
 		groupadd -g $GID $GROUP
-    else
+	else
 		GID=$UID
 		groupadd -g $GID $GROUP
-    fi
+	fi
 
 	if [ "$UID" -lt "1000" ]; then
 		useradd -r -N -g $GID -s /bin/sh -u $UID $USER > /dev/null 2>&1

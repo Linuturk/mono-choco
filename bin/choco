@@ -13,7 +13,7 @@ trap cleanup EXIT
 
 USER=root
 if [ -n "$UID" ] && [ "$UID" -gt "100" ]; then
-    USER=chocolatey
+	USER=chocolatey
 	GROUP=chocolatey
 
     if [ -n "$GID" ] && [ "$GID" -gt "100" ]; then

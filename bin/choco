@@ -4,8 +4,8 @@ set -e
 # choco dumps a ton of stuff in the PWD/opt
 # This hack will clean it up automatically.
 function cleanup {
-	if [ -d opt ]; then
-	        rm -rf opt
+	if [ $PWD != "/" ] && [ -d opt ]; then
+		rm -rf opt
 	fi
 }
 trap cleanup EXIT

@@ -4,10 +4,10 @@ This directory contains an example package and Dockerfile.
 
 ## Generating a new package
 
-The **mypackage** directory was generated using the following command. Note, if you omit `-e UID=$UID` you will need to fix the ownership of these files as they are generated as the root user inside the container.
+The **mypackage** directory was generated using the following command. Note you will need to fix the ownership of these files as they are generated as the root user inside the container.
 
 ```bash
-docker run --rm -e UID=$UID -v $PWD:$PWD -w $PWD linuturk/mono-choco new mypackage --version 1.0.0 --maintainer "Justin Phelps"
+docker run --rm -v $PWD:$PWD -w $PWD linuturk/mono-choco new mypackage --version 1.0.0 --maintainer "Justin Phelps"
 ```
 
 There are some modifications necessary to the generated nuspec file before it will generate a package. Check the file's git history to see those changes.
@@ -18,7 +18,7 @@ I recommend you use the Dockerfile example in this directory to pack your nuget 
 
 ```bash
 cd /path/to/mypackage
-docker run --rm -e UID=$UID -v $PWD:$PWD -w $PWD linuturk/mono-choco pack mypackage.nuspec
+docker run --rm -v $PWD:$PWD -w $PWD linuturk/mono-choco pack mypackage.nuspec
 Chocolatey v0.10.9.0
 Directory 'opt/chocolatey/lib' does not exist.
 

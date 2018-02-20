@@ -15,9 +15,14 @@ RUN ./build.sh -v
 
 FROM alpine:latest
 
-RUN apk add --no-cache mono shadow --repository http://nl.alpinelinux.org/alpine/edge/testing
+RUN apk add --no-cache mono --repository http://nl.alpinelinux.org/alpine/edge/testing && \
+    apk add --no-cache shadow ca-certificates && \
+    cert-sync /etc/ssl/certs/ca-certificates.crt && \
+    apk del ca-certificates
+
 COPY --from=builder /usr/local/src/choco/build_output/chocolatey /opt/chocolatey
 COPY bin/choco /usr/bin/choco
+COPY bin/entrypoint.sh /root/entrypoint.sh
 
-ENTRYPOINT ["/usr/bin/choco"]
+ENTRYPOINT ["/root/entrypoint.sh"]
 CMD ["-h"]

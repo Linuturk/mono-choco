@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 set -e
 
 # choco dumps a ton of stuff in the PWD/opt

@@ -14,10 +14,11 @@ RUN ./build.sh -v
 
 
 FROM debian
+RUN apt update && apt install -y login mono-devel passwd && apt-get clean all
 
-RUN apt update && apt install -y mono-devel && apt-get clean all
 COPY --from=builder /usr/local/src/choco/build_output/chocolatey /opt/chocolatey
 COPY bin/choco /usr/bin/choco
+COPY bin/entrypoint.sh /root/entrypoint.sh
 
-ENTRYPOINT ["/usr/bin/choco"]
+ENTRYPOINT ["/root/entrypoint.sh"]
 CMD ["-h"]

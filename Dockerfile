@@ -13,12 +13,8 @@ RUN chmod +x build.sh zip.sh
 RUN ./build.sh -v
 
 
-FROM alpine:latest
-
-RUN apk add --no-cache mono --repository http://nl.alpinelinux.org/alpine/edge/testing && \
-    apk add --no-cache shadow ca-certificates && \
-    cert-sync /etc/ssl/certs/ca-certificates.crt && \
-    apk del ca-certificates
+FROM debian
+RUN apt update && apt install -y login mono-devel passwd && apt-get clean all
 
 COPY --from=builder /usr/local/src/choco/build_output/chocolatey /opt/chocolatey
 COPY bin/choco /usr/bin/choco

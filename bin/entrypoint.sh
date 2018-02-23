@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 set -e
 
 USER=root
@@ -7,7 +7,7 @@ if [ -n "$UID" ] && [ "$UID" -gt "100" ]; then
 	GROUP=chocolatey
 
 	if [ -z "$GID" ] || [ "$GID" -lt "101" ]; then
-		GID=$UID		
+		GID=$UID
 	fi
 	groupadd -g $GID $GROUP
 

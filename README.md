@@ -12,7 +12,14 @@ See [the example directory](./example/README.md) for a basic package example.
 
 1. "Cannot create a package that has no dependencies nor content."
 
-Check your nuspec file for the line that reads:
+The nuspec file most likely requires this for the files section:
+```xml
+  <files>
+    <file src="tools/**" target="tools" />
+  </files>
+
+```
+Note the comment in the nuspec template that reads:
 
 ```xml
 <!--Building from Linux? You may need this instead: <file src="tools/**" target="tools" />-->

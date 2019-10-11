@@ -1,5 +1,7 @@
 # mono-choco
 
+[Latest Build Status](https://hub.docker.com/r/linuturk/mono-choco/builds)
+
 Docker image for creating a container with Chocolatey running on Mono
 
 ## Usage

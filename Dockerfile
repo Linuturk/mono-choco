@@ -1,4 +1,4 @@
-FROM mono:3.12.1 as builder
+FROM mono as builder
 ARG CHOCOVERSION=stable
 
 RUN echo "deb http://archive.debian.org/debian/ wheezy main contrib non-free" >/etc/apt/sources.list

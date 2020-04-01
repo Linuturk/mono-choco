@@ -1,8 +1,7 @@
 FROM mono:6.8
 ARG CHOCOVERSION=stable
 
-# Add contrib and non-free
-#RUN echo "deb http://archive.debian.org/debian/ stretch main contrib non-free" >/etc/apt/sources.list
+# Make sure we have these tools
 RUN apt-get update && apt-get install -y wget tar gzip
 
 # Import some additional certs

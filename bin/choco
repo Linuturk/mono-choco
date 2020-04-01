@@ -1,14 +1,5 @@
 #!/bin/bash
 set -e
 
-# choco dumps a ton of stuff in the PWD/opt
-# This hack will clean it up automatically.
-function cleanup {
-	if [ $PWD != "/" ] && [ -d opt ]; then
-		rm -rf opt
-	fi
-}
-trap cleanup EXIT
-
 # Wrap the mono choco.exe command
-mono /opt/chocolatey/choco.exe "$@" --allow-unofficial
+mono /opt/chocolatey/console/choco.exe "$@" --allow-unofficial

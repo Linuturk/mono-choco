@@ -1,4 +1,4 @@
-FROM mono:6.8
+FROM mono:6.12.0
 ARG CHOCOVERSION=stable
 
 # Make sure we have these tools
